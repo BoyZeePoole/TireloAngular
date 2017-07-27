@@ -1,3 +1,22 @@
-<h1>
-  {{title}}
-</h1>
+<td-layout [mode]="push">
+  <td-navigation-drawer flex sidenavTitle="Tirelo" >
+    <md-nav-list>
+      <a tdLayoutToggle *ngFor="let item of routes" routerLink="{{item.route}}" md-list-item>{{item.title}}</a>
+    </md-nav-list>
+
+  </td-navigation-drawer>
+  <td-layout-nav color="accent">
+    <div td-toolbar-content layout="row" layout-align="start center" flex>
+      <button md-icon-button td-menu-button tdLayoutToggle>
+        <md-icon>menu</md-icon>
+      </button>
+      <md-icon class="md-icon-logo cursor-pointer" svgIcon="assets:teradata"></md-icon>
+      <span class="cursor-pointer">Tirelo</span>
+      <span flex></span>
+    </div>
+    <td-layout-card-over color="accent" cardWidth="75">
+      <router-outlet></router-outlet>
+    </td-layout-card-over>
+  </td-layout-nav>
+</td-layout>
+

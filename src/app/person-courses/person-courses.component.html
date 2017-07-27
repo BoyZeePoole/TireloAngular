@@ -1,0 +1,40 @@
+<md-card-title>Courses:</md-card-title>
+<md-card-subtitle>{{pageProperties.Title}}</md-card-subtitle>
+<md-divider></md-divider>
+<md-card-content>
+ <form [formGroup]="personCourseForm" novalidate>
+    <div style="align-content: center">
+      <div layout="row">
+        <div class="form-content">
+          <md-select class="selectDD" [formControl]="personCourseForm.controls['course']" [(ngModel)] = "selectedCourse" placeholder="Course" name="course">
+            <md-option *ngFor="let course of courseData" [value]="course.Id">
+              {{course.Name}}
+            </md-option>
+          </md-select>
+        </div>
+      <div class="form-content">
+      <md-input-container>
+        <input [formControl]="personCourseForm.controls['dateCompleted']" mdInput [mdDatepicker]="picker" placeholder="Completed date">
+        <button mdSuffix [mdDatepickerToggle]="picker"></button>
+        <md-error >
+            Completed date <strong>required</strong>
+          </md-error>
+      </md-input-container>
+      <md-datepicker #picker></md-datepicker>   
+      </div>
+      <div class="form-content">
+      <md-input-container>
+        <input [formControl]="personCourseForm.controls['dateRegistered']" mdInput [mdDatepicker]="picker2" placeholder="Register date">
+        <button mdSuffix [mdDatepickerToggle]="picker2"></button>
+      </md-input-container>
+      <md-datepicker #picker2></md-datepicker>   
+      </div>
+    </div>
+      </div>      
+ 
+</form>
+</md-card-content>
+ <app-person-courses-listing [coursePersonData]="personCourseChildData"></app-person-courses-listing> 
+<md-card-actions>
+  <button md-button color="accent" class="text-upper" (click)="addPersonCourses(personCourseForm.value)">{{pageProperties.ActionButton}}</button>
+</md-card-actions>

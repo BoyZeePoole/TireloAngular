@@ -1,0 +1,56 @@
+<md-card-title>Person</md-card-title>
+<md-card-subtitle>{{pageProperties.Title}}</md-card-subtitle>
+<md-divider></md-divider>
+<md-card-content>
+ <form [formGroup]="personForm" novalidate>
+    <div style="align-content: center">
+      <div layout="row">
+        <div class="form-content">
+          <md-input-container class="full-width">
+          <input mdInput [formControl]="personForm.controls['surname']" placeholder="Surname" id="surname" [ngModel] = "personModel.Surname">
+          <md-error >
+            Name is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        </div>
+        <div class="form-content">
+          <md-input-container class="full-width">
+          <input mdInput [formControl]="personForm.controls['initials']" placeholder="Initials" id="initials" [ngModel] = "personModel.Initials">
+          <md-error >
+            Initials is <strong>required</strong>
+          </md-error>
+        </md-input-container></div>
+      </div>
+      <div layout="row">
+        <div class="form-content">
+        <md-input-container class="full-width">
+          <input mdInput [formControl]="personForm.controls['coynumber']" placeholder="coynumber" id="coynumber" [ngModel] = "personModel.CoyNumber">
+          <md-error >
+            coynumber is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+        </div>
+        <div class="form-content">
+          <md-select class="selectDD" [formControl]="personForm.controls['role']" [(ngModel)] = "selectedRole" placeholder="Role" name="role">
+            <md-option *ngFor="let role of roleData" [value]="role.Id">
+              {{role.RoleName}}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="form-content">
+          <md-select class="selectDD" [formControl]="personForm.controls['manager']" [(ngModel)] = "selectedManagerId" placeholder="Manager" name="manager">
+            <md-option *ngFor="let people of peopleData" [value]="people.Id">
+              {{people.Surname}}, {{people.Initials}}
+            </md-option>
+          </md-select>
+        </div>
+      </div>      
+    </div> 
+</form>
+</md-card-content>
+<md-divider></md-divider>
+<md-card-actions>
+  <button md-button color="accent" class="text-upper" (click)="addPerson(personForm.value)">{{pageProperties.ActionButton}}</button>
+  <button md-button color="accent" class="text-upper" routerLink="/people">Cancel</button>  
+  <button md-button *ngIf="pageProperties.EditMode" color="accent" class="text-upper" [routerLink]="['/personcourses', selectedPersonId]">Add Course</button>  
+</md-card-actions>

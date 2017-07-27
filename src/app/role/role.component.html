@@ -1,0 +1,22 @@
+<md-card-title>Role</md-card-title>
+<md-card-subtitle>{{pageProperties.Title}}</md-card-subtitle>
+<md-divider></md-divider>
+<md-card-content>
+ <form [formGroup]="roleForm" novalidate (ngSubmit)="addRole(roleForm.value)">
+   <md-grid-list cols="3" gutterSize="5" rowHeight="80px">
+     <md-grid-tile>
+        <md-input-container class="example-full-width">
+          <input mdInput [formControl]="roleForm.controls['roleName']" placeholder="Role" id="roleName"  [ngModel]="roleModel.RoleName">
+          <md-error >
+            Role is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+     </md-grid-tile>       
+   </md-grid-list>
+</form>
+</md-card-content>
+<md-divider></md-divider>
+<md-card-actions>
+  <button md-button color="accent" class="text-upper" (click)="addRole(roleForm.value)">{{pageProperties.ActionButton}}</button>
+  <button md-button color="accent" class="text-upper" routerLink="/roles">Cancel</button>  
+</md-card-actions>

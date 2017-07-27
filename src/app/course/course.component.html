@@ -1,0 +1,30 @@
+<md-card-title>Course</md-card-title>
+<md-card-subtitle>{{pageProperties.Title}}</md-card-subtitle>
+<md-divider></md-divider>
+<md-card-content>
+ <form [formGroup]="courseForm" novalidate (ngSubmit)="addRole(courseForm.value)">
+   <md-grid-list cols="3" gutterSize="5" rowHeight="80px">
+     <md-grid-tile>
+        <md-input-container class="example-full-width">
+          <input mdInput [formControl]="courseForm.controls['courseName']" placeholder="Course" id="courseName"  [ngModel]="courseModel.Name">
+          <md-error >
+            Course is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+     </md-grid-tile>
+      <md-grid-tile>
+        <md-input-container class="example-full-width">
+          <input mdInput [formControl]="courseForm.controls['validPeriod']" placeholder="Period Valid" id="validPeriod"  [ngModel]="courseModel.ValidPeriod">
+          <md-error >
+            Valid period is <strong>required</strong>
+          </md-error>
+        </md-input-container>
+     </md-grid-tile>      
+   </md-grid-list>
+</form>
+</md-card-content>
+<md-divider></md-divider>
+<md-card-actions>
+  <button md-button color="accent" class="text-upper" (click)="addCourse(courseForm.value)">{{pageProperties.ActionButton}}</button>
+  <button md-button color="accent" class="text-upper" routerLink="/courses">Cancel</button>  
+</md-card-actions>
