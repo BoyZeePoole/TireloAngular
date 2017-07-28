@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { EndPoints } from './tirelo-settings';
 import {Http, Response, URLSearchParams, RequestOptions} from '@angular/http';
 
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import './rxjs-operators';
 import { AuthHeaderService } from './auth-header.service';
 import { ConfigurationService } from './tirelo.config.service'
@@ -50,7 +50,8 @@ export class CourseService {
 
      return this.http
       .get(endpoint, options)
-      .map(response => {
+      //.flatMap((response) => response.json())
+      .map((response) => {
         return response.json()
       })
       .catch(this.handleError);

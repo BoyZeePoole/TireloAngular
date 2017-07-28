@@ -1,7 +1,10 @@
 .td-data-table-row {
-    height: 30px;
-    
-    td {
+    height: 30px;    
+    .td-data-table-cell {
         font-size: 12px;
     }
+}
+
+.table[td-data-table] .td-data-table-cell{
+        font-size: 12px;
 }

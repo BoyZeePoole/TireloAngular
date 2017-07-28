@@ -12,7 +12,13 @@ export class PersonCoursesListingComponent implements OnInit, OnChanges{
 columns: ITdDataTableColumn[] = [
     { name: 'CourseName', label: 'Course Name', tooltip: '' },
     { name: 'DateCompleted', label: 'Date Completed' },
-    { name: 'DateRegistered', label: 'Date Registered' }
+    { name: 'DateRegistered', label: 'Date Registered' },
+    { name: 'Manager', label: 'Manager' },
+    { name: 'Period', label: 'Period' },
+    { name: 'Expire', label: 'Date Expire' },
+    { name: 'DaysLeft', label: 'Days left'}
+    
+
   ];
   filteredData: any[];
   filteredTotal: number;
@@ -51,9 +57,35 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.filter(); 
   }
 
+  add_months(dt, n){
+   return new Date(dt.setMonth(dt.getMonth() + n));      
+  }
+  getDateField(date: string) {
+    let dt = new Date(date);
+    return date ? ("0" + dt.getDate()).slice(-2) + "-" + ("0"+(dt.getMonth()+1)).slice(-2) + "-" +
+    dt.getFullYear() : '';
+    //return date ? dt.getDate() + '-' + (dt.getMonth() + 1) + '-' + dt.getFullYear() : '';
+  }
+
+  getDaysFromDates(dateFirst :string, dateSecond: string) {
+      let days = Math.floor(( Date.parse(dateFirst) - Date.parse(dateSecond) ) / 86400000);
+      return days >= 0 ? days : 'Expired';
+  }
+
   filter(): void {
-    let newData: any[] = this.coursePersonData;
-    if (this.coursePersonData == null) return;
+     if (this.coursePersonData == null) return;
+     let newData: any[] = this.coursePersonData.map(o => {
+      let validPeriod = o.Course.ValidPeriod;
+      let validityDate = this.add_months(new Date(o.DateCompleted), validPeriod);
+      return { CourseName: o.Course.Name,
+               DateCompleted: this.getDateField(o.DateCompleted) ,
+               DateRegistered: this.getDateField(o.DateRegistered),
+               Expire: this.getDateField(validityDate.toDateString()),
+               DaysLeft: this.getDaysFromDates(validityDate.toDateString(), new Date().toDateString()),
+               Period: o.Course.ValidPeriod,
+               Manager: o.Manager ? o.Manager.Initials + ' ' + o.Manager.Surname : '***' };
+    });
+   
     let excludedColumns: string[] = this.columns
     .filter((column: ITdDataTableColumn) => {
       return ((column.filter === undefined && column.hidden === true) ||

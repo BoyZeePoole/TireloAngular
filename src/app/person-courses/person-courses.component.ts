@@ -16,12 +16,16 @@ export class PersonCoursesComponent implements OnInit {
   selectedPersonId: any;
   selectedCourse: any;
   personCourseChildData: any;
-  public personCourseData = {
-    id: null,
-    personId: '',
-    courseId: '',
-    dateRegistered: null,
-    dateCompleted: null
+  public personCourseModel= {
+    Id: null,
+    DateRegistered: '',
+    DateCompleted: '',
+    Employee: {
+      Id: ''      
+    },
+    Course: {
+      Id: '',
+    }
   }
 public pageProperties = {
     Title: 'Person',
@@ -76,11 +80,11 @@ public pageProperties = {
   }
   addPersonCourses(formValues):void {
      if (this.personCourseForm.invalid) return;
-     this.personCourseData.courseId = this.selectedCourse;
-     this.personCourseData.personId = this.selectedPersonId;
-     this.personCourseData.dateCompleted = formValues.dateCompleted;
-     this.personCourseData.dateRegistered = formValues.dateRegistered;
-     this.courseService.upsertPersonCourse(this.personCourseData)
+     this.personCourseModel.Course.Id = this.selectedCourse;
+     this.personCourseModel.Employee.Id = this.selectedPersonId;
+     this.personCourseModel.DateCompleted = formValues.dateCompleted;
+     this.personCourseModel.DateRegistered = formValues.dateRegistered;
+     this.courseService.upsertPersonCourse(this.personCourseModel)
      .subscribe(
       success => {
         //this.popToast('success', 'Success', this.popupMessage);
