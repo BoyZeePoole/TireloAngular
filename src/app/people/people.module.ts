@@ -9,10 +9,11 @@ import { AuthHeaderService } from '../services/auth-header.service';
 import { ConfigurationService } from '../services/tirelo.config.service'
 import {routing} from './people.routing';
 import { MaterialModule} from '@angular/material';
-import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableSelectEvent } from '@covalent/core';
 import { CovalentDataTableModule } from '@covalent/core';
 import { CovalentSearchModule } from '@covalent/core';
 import { CovalentPagingModule } from '@covalent/core';
+import { PersonCoursesListingModule } from '../components/person-courses-listing/person-courses-listing.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -30,7 +31,8 @@ import { CovalentPagingModule } from '@covalent/core';
     MaterialModule,
     CovalentDataTableModule,
     CovalentSearchModule,
-    CovalentPagingModule
+    CovalentPagingModule,
+    PersonCoursesListingModule
   ],
   declarations: [PeopleComponent],
   providers: [

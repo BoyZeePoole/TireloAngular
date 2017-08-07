@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import {FormControl} from '@angular/forms';
+import {MdInputModule, MdGridListModule} from '@angular/material';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 import {MdSidenavModule} from '@angular/material';

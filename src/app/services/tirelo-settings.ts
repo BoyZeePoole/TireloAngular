@@ -9,5 +9,6 @@ export const EndPoints = {
     getCourses: '/api/getCourses',
     setCourse: '/api/course',
     setCoursePerson: 'api/personcourse',
-    getPersonCourses: 'api/getpersoncourse'
+    getPersonCourses: 'api/getpersoncourse',
+    deletePersonCourses: 'api/deletepersoncourse'
 };

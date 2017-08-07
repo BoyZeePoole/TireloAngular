@@ -4,7 +4,7 @@ import {MdInputModule, MdGridListModule} from '@angular/material';
 import {CourseService} from '../services/course.service';
 import {PersonService} from '../services/person.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PersonCoursesListingComponent } from '../components/person-courses-listing/person-courses-listing.component';
+
 @Component({
   selector: 'app-person-courses',
   templateUrl: './person-courses.component.html',

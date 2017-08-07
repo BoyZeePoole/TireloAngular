@@ -24,9 +24,8 @@
   [sortBy]="sortBy"
   [(ngModel)]="selectedRows"
   [sortOrder]="sortOrder"
-  (sortChange)="sort($event)"
-  (click)="selectEvent($event)" >
-  
+  (click) = "selectEvent($event)"
+  (sortChange)="sort($event)">  
 </td-data-table>
 <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">
   <h3>No results to display.</h3>

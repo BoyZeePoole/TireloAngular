@@ -1,15 +1,14 @@
-<md-divider></md-divider>
 <td-data-table
   #dataTable
   [data]="filteredData"
   [columns]="columns"
-  [selectable]="selectable"
-  [clickable]="clickable"
-  [multiple]="multiple"
+  [selectable]="true"
+  [multiple]="true"
   [sortable]="true"
   [sortBy]="sortBy"
   [sortOrder]="sortOrder"
   (sortChange)="sort($event)"
+  [(ngModel)]="selectedRows"
   (click)="selectEvent($event)" >
   
 </td-data-table>

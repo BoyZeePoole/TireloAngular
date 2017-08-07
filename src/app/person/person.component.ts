@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MdInputModule, MdGridListModule} from '@angular/material';
+import {CourseService} from '../services/course.service';
 import {RoleService} from '../services/role.service';
 import {PersonService} from '../services/person.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,6 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class PersonComponent implements OnInit {
   personForm: FormGroup;
+  deletedIds: any[];
   public roleData: any;
   public peopleData: any;
   public personModel= {
@@ -29,6 +31,18 @@ export class PersonComponent implements OnInit {
       RoleName: ''
     }
   }
+  personCourseChildData: any;
+  public personCourseModel= {
+    Id: null,
+    DateRegistered: '',
+    DateCompleted: '',
+    Employee: {
+      Id: ''      
+    },
+    Course: {
+      Id: '',
+    }
+  }
 
   public pageProperties = {
     Title: 'Add Person',
@@ -38,7 +52,8 @@ export class PersonComponent implements OnInit {
   selectedRole: string;
   selectedPersonId: string;
   selectedManagerId: string;
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
+              private courseService: CourseService, 
               private roleService: RoleService,
               private personService: PersonService,
               private route: ActivatedRoute,
@@ -82,6 +97,7 @@ export class PersonComponent implements OnInit {
               this.pageProperties.Title = `Edit : ${this.personModel.Initials} - ${this.personModel.Surname}`;
               this.pageProperties.ActionButton = 'Update';
               this.pageProperties.EditMode = true;
+              this.getPersonCourses(this.selectedPersonId);
             },
             error => {
               //this.popToast('error', 'Error', this.errorService.displayError(error));
@@ -102,6 +118,17 @@ export class PersonComponent implements OnInit {
         manager: null
       })
    }
+
+    getPersonCourses(id: string) : void {
+    this.courseService.getPersonCourses(id)
+      .subscribe(
+        people => {
+          this.personCourseChildData = people;
+        },
+        error => {
+          //his.popToast('error', 'Error', this.errorService.displayError(error));
+        });
+  }
   addPerson(formValues) : void {
     if (this.personForm.invalid) return;
     this.personModel.Surname = formValues.surname;
@@ -127,5 +154,22 @@ export class PersonComponent implements OnInit {
         //this.popToast('error', 'Error', this.errorService.displayError(error));
       });    
 
+    };
+    
+    onDeleted(data: any[]) {
+      this.deletedIds = data.map(o=> {
+        return o.Id;
+      });
+    }
+    deletePersonCourses() {
+      this.courseService.deletePersonCourse(this.deletedIds)
+      .subscribe(
+        success => {
+          this.deletedIds = [];
+          this.getPersonCourses(this.selectedPersonId);
+        },
+        error => {
+
+        });
     }
   }

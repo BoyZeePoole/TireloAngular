@@ -11,10 +11,8 @@ import {routing} from './person-courses.routing';
 import { MaterialModule, DateAdapter, MD_DATE_FORMATS} from '@angular/material';
 import { APP_DATE_FORMATS } from '../mods/app.date-constants';
 import { AppDateAdapter} from '../mods/app.date-adapter';
-import { PersonCoursesListingComponent } from '../components/person-courses-listing/person-courses-listing.component';
-import { CovalentDataTableModule } from '@covalent/core';
-import { CovalentSearchModule } from '@covalent/core';
-import { CovalentPagingModule } from '@covalent/core';
+import { PersonCoursesListingModule } from '../components/person-courses-listing/person-courses-listing.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -30,11 +28,9 @@ import { CovalentPagingModule } from '@covalent/core';
     MdGridListModule,
     MaterialModule,
     MdDatepickerModule,
-    CovalentDataTableModule,
-    CovalentSearchModule,
-    CovalentPagingModule
+    PersonCoursesListingModule
   ],
-  declarations: [PersonCoursesComponent, PersonCoursesListingComponent],
+  declarations: [PersonCoursesComponent],
   providers: [
           PersonService,
           CourseService,

@@ -49,8 +49,11 @@
 </form>
 </md-card-content>
 <md-divider></md-divider>
+ <app-person-courses-listing *ngIf="selectedPersonId" [coursePersonData]="personCourseChildData" (onDeleted)="onDeleted($event)"></app-person-courses-listing> 
+<md-divider></md-divider>
 <md-card-actions>
   <button md-button color="accent" class="text-upper" (click)="addPerson(personForm.value)">{{pageProperties.ActionButton}}</button>
   <button md-button color="accent" class="text-upper" routerLink="/people">Cancel</button>  
   <button md-button *ngIf="pageProperties.EditMode" color="accent" class="text-upper" [routerLink]="['/personcourses', selectedPersonId]">Add Course</button>  
+  <button md-button color="accent" *ngIf="deletedIds && deletedIds.length > 0" class="text-upper" (click)="deletePersonCourses()">Delete</button>  
 </md-card-actions>

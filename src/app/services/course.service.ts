@@ -75,8 +75,6 @@ export class CourseService {
 
   upsertPersonCourse(personCourse) : Observable <boolean> {
     let endpoint = this.configService.RootUrl() + EndPoints.setCoursePerson;
-    let payload = new URLSearchParams();
-    payload.append("Person", personCourse);
 
     let _headers = this.authHeaderService.getHeaders();
     _headers.delete('Content-Type');
@@ -90,6 +88,22 @@ export class CourseService {
         .catch(this.handleError);
   }
 
+
+  deletePersonCourse(ids: string[]) : Observable <boolean> {
+    let endpoint = this.configService.RootUrl() + EndPoints.deletePersonCourses;
+    let _headers = this.authHeaderService.getHeaders();
+    _headers.delete('Content-Type');
+    _headers.append('Content-Type', 'application/json');
+    
+     return this.http
+      .post(endpoint, JSON.stringify(ids), {headers: _headers})     
+      //.flatMap((response) => response.json())
+      .map((response) => {
+        return response.json()
+      })
+      .catch(this.handleError);
+    
+  }
   private handleError(error: Response | any) {
     if (error instanceof Response) {
       return Observable.throw(error);

@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { TdDataTableService, TdDataTableSortingOrder, ITdDataTableSortChangeEvent, ITdDataTableColumn, ITdDataTableSelectEvent } from '@covalent/core';
 import { IPageChangeEvent } from '@covalent/core';
+
 @Component({
   selector: 'app-person-courses-listing',
   templateUrl: './person-courses-listing.component.html',
@@ -8,8 +9,10 @@ import { IPageChangeEvent } from '@covalent/core';
 })
 export class PersonCoursesListingComponent implements OnInit, OnChanges{
   @Input() coursePersonData : any;
+  @Output() onDeleted = new EventEmitter<any[]>();
   searchTerm: string='';
 columns: ITdDataTableColumn[] = [
+    { name: 'Id', label: '', tooltip: '', hidden: true },
     { name: 'CourseName', label: 'Course Name', tooltip: '' },
     { name: 'DateCompleted', label: 'Date Completed' },
     { name: 'DateRegistered', label: 'Date Registered' },
@@ -17,8 +20,6 @@ columns: ITdDataTableColumn[] = [
     { name: 'Period', label: 'Period' },
     { name: 'Expire', label: 'Date Expire' },
     { name: 'DaysLeft', label: 'Days left'}
-    
-
   ];
   filteredData: any[];
   filteredTotal: number;
@@ -36,6 +37,7 @@ columns: ITdDataTableColumn[] = [
   constructor( private dataTableService: TdDataTableService) { }
   ngOnChanges() {
     this.filter();
+    this.onDeleted.emit(this.selectedRows);
   }
   ngOnInit() {
     this.filter();
@@ -48,6 +50,7 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
   selectEvent(clickEvent: ITdDataTableSelectEvent): void {
     this.selectedItem = clickEvent;
     let item = this.selectedRows[0];
+    this.onDeleted.emit(this.selectedRows);
     //this.router.navigate(['/person', item.Id]);
   }
   page(pagingEvent: IPageChangeEvent): void {
@@ -77,7 +80,9 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
      let newData: any[] = this.coursePersonData.map(o => {
       let validPeriod = o.Course.ValidPeriod;
       let validityDate = this.add_months(new Date(o.DateCompleted), validPeriod);
-      return { CourseName: o.Course.Name,
+      return {
+              Id: o.Id,
+               CourseName: o.Course.Name,
                DateCompleted: this.getDateField(o.DateCompleted) ,
                DateRegistered: this.getDateField(o.DateRegistered),
                Expire: this.getDateField(validityDate.toDateString()),

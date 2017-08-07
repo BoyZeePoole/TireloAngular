@@ -11,10 +11,14 @@ import { AppComponent } from './app.component';
 import {HomeComponent} from './home/home.component';
 import {routing} from './app.routing';
 import { MaterialModule, MdNativeDateModule} from '@angular/material';
+import { CovalentDataTableModule } from '@covalent/core';
+import { CovalentSearchModule } from '@covalent/core';
+import { CovalentPagingModule } from '@covalent/core';
+
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     CovalentLayoutModule,
@@ -34,7 +38,10 @@ import { MaterialModule, MdNativeDateModule} from '@angular/material';
     MdGridListModule,
     routing,
     MaterialModule,
-    MdNativeDateModule
+    MdNativeDateModule,
+    CovalentDataTableModule,
+    CovalentSearchModule,
+    CovalentPagingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

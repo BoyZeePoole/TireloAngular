@@ -9,6 +9,8 @@ import { AuthHeaderService } from '../services/auth-header.service';
 import { ConfigurationService } from '../services/tirelo.config.service'
 import {routing} from './person.routing';
 import { MaterialModule} from '@angular/material';
+import { CourseService } from '../services/course.service';
+import { PersonCoursesListingModule } from '../components/person-courses-listing/person-courses-listing.module';
 
 @NgModule({
   imports: [
@@ -24,11 +26,13 @@ import { MaterialModule} from '@angular/material';
     MdIconModule,
     MdListModule,
     MdGridListModule,
-    MaterialModule
+    MaterialModule,
+    PersonCoursesListingModule
   ],
   declarations: [PersonComponent],
   providers: [
           RoleService,
+          CourseService,
           PersonService,
           AuthHeaderService,
           ConfigurationService
