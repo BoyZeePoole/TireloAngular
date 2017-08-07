@@ -5,6 +5,7 @@ import {CourseService} from '../services/course.service';
 import {RoleService} from '../services/role.service';
 import {PersonService} from '../services/person.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TdDialogService } from '@covalent/core';
 
 @Component({
   selector: 'app-person',
@@ -57,6 +58,7 @@ export class PersonComponent implements OnInit {
               private roleService: RoleService,
               private personService: PersonService,
               private route: ActivatedRoute,
+              private dialogService: TdDialogService,
               private router: Router) {     
     this.getRoles();
     this.getPeople();
@@ -162,14 +164,30 @@ export class PersonComponent implements OnInit {
       });
     }
     deletePersonCourses() {
-      this.courseService.deletePersonCourse(this.deletedIds)
-      .subscribe(
-        success => {
-          this.deletedIds = [];
-          this.getPersonCourses(this.selectedPersonId);
-        },
-        error => {
+      this.dialogService.openConfirm({
+        message: 'Are you sure?',
+        cancelButton: "Cancel",
+        acceptButton: "Ok",
+        title: "Delete Course"
+      }).afterClosed().subscribe((accept: boolean) => {
+        if(accept) {
+          this.courseService.deletePersonCourse(this.deletedIds)
+          .subscribe(
+            success => {
+              this.deletedIds = [];
+              this.getPersonCourses(this.selectedPersonId);
+            },
+            error => {
 
-        });
+            });
+        } else {
+
+        }
+      });
+
+
+
+      
+
     }
   }

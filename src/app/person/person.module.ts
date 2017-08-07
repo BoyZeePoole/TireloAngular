@@ -11,7 +11,7 @@ import {routing} from './person.routing';
 import { MaterialModule} from '@angular/material';
 import { CourseService } from '../services/course.service';
 import { PersonCoursesListingModule } from '../components/person-courses-listing/person-courses-listing.module';
-
+import { CovalentDialogsModule } from '@covalent/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -27,7 +27,8 @@ import { PersonCoursesListingModule } from '../components/person-courses-listing
     MdListModule,
     MdGridListModule,
     MaterialModule,
-    PersonCoursesListingModule
+    PersonCoursesListingModule,
+    CovalentDialogsModule
   ],
   declarations: [PersonComponent],
   providers: [

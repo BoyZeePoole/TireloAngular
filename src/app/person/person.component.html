@@ -55,5 +55,5 @@
   <button md-button color="accent" class="text-upper" (click)="addPerson(personForm.value)">{{pageProperties.ActionButton}}</button>
   <button md-button color="accent" class="text-upper" routerLink="/people">Cancel</button>  
   <button md-button *ngIf="pageProperties.EditMode" color="accent" class="text-upper" [routerLink]="['/personcourses', selectedPersonId]">Add Course</button>  
-  <button md-button color="accent" *ngIf="deletedIds && deletedIds.length > 0" class="text-upper" (click)="deletePersonCourses()">Delete</button>  
+  <button md-button color="accent" *ngIf="deletedIds && deletedIds.length > 0" class="text-upper" (click)="deletePersonCourses()">Delete ({{ deletedIds.length}})</button>  
 </md-card-actions>
