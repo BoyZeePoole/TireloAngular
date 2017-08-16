@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {MdInputModule, MdGridListModule} from '@angular/material';
+import {MdInputModule, MdGridListModule, DateAdapter, NativeDateAdapter} from '@angular/material';
 import {CourseService} from '../services/course.service';
 import {PersonService} from '../services/person.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -36,7 +36,9 @@ public pageProperties = {
               private courseService: CourseService,
               private personService: PersonService,
               private route: ActivatedRoute,
-              private router: Router) { 
+              private router: Router,
+              dateAdapter: DateAdapter<NativeDateAdapter>) { 
+                dateAdapter.setLocale('en-GB');
                 this.getCourses();
                 this.createForm();
               }
@@ -82,8 +84,8 @@ public pageProperties = {
      if (this.personCourseForm.invalid) return;
      this.personCourseModel.Course.Id = this.selectedCourse;
      this.personCourseModel.Employee.Id = this.selectedPersonId;
-     this.personCourseModel.DateCompleted = formValues.dateCompleted;
-     this.personCourseModel.DateRegistered = formValues.dateRegistered;
+     this.personCourseModel.DateCompleted =  this.convertDate(formValues.dateCompleted);
+     this.personCourseModel.DateRegistered = this.convertDate(formValues.dateRegistered);
      this.courseService.upsertPersonCourse(this.personCourseModel)
      .subscribe(
       success => {
@@ -94,6 +96,10 @@ public pageProperties = {
         //this.errorMessage = error;
         //this.popToast('error', 'Error', this.errorService.displayError(error));
       }); 
+  }
+
+  convertDate(date) : string {
+    return date ? new Date(date).getFullYear() + '-' + (new Date(date).getMonth() + 1) + '-' + new Date(date).getDate() : '';
   }
 
   getPersonCourses(id: string) : void {

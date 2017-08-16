@@ -6,12 +6,15 @@ export class AppDateAdapter extends NativeDateAdapter {
     format(date: Date, displayFormat: Object): string {
 
         if (displayFormat === 'input') {
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
             const year = date.getFullYear();
-            return `${day}-${month}-${year}`;
+            const month = ("0"+(date.getMonth()+1)).slice(-2);
+            const day = ("0" + date.getDate()).slice(-2);
+            
+            return `${year}/${month}/${day}`;
         } else {
-            return date ? ("0" + date.getDate()).slice(-2) + "-" + ("0"+(date.getMonth()+1)).slice(-2) + "-" + date.getFullYear() : '';
+            return date ? date.getFullYear() + "/" + ("0"+(date.getMonth()+1)).slice(-2) + "/" + ("0" + date.getDate()).slice(-2) : '';
+            //return date ? ("0" + date.getDate()).slice(-2) + "*" + ("0"+(date.getMonth()+1)).slice(-2) + "*" + date.getFullYear() : '';
+            //return date.toString();
 
             //return date.toISOString();
         }
