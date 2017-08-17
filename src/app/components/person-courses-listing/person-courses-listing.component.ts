@@ -51,7 +51,6 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.selectedItem = clickEvent;
     let item = this.selectedRows[0];
     this.onDeleted.emit(this.selectedRows);
-    //this.router.navigate(['/person', item.Id]);
   }
   page(pagingEvent: IPageChangeEvent): void {
     this.fromRow = pagingEvent.fromRow;
@@ -67,7 +66,6 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
     let dt = new Date(date);
     return date ? ("0" + dt.getDate()).slice(-2) + "-" + ("0"+(dt.getMonth()+1)).slice(-2) + "-" +
     dt.getFullYear() : '';
-    //return date ? dt.getDate() + '-' + (dt.getMonth() + 1) + '-' + dt.getFullYear() : '';
   }
 
   getDaysFromDates(dateFirst :string, dateSecond: string) {
