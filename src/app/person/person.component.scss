@@ -5,6 +5,27 @@
     padding: 12px;
     width: 300px;
     .full-width {
-        width: 300px;
+        width: 300px;       
     }
+     @media screen 
+            and (min-width: 360px) 
+            and (min-height: 640px) 
+            and (-webkit-device-pixel-ratio: 3) 
+            and (orientation: portrait) {
+                float: none;
+                 .full-width {
+                    width: 100px;       
+                }
+            }
+        @media screen 
+            and (min-width: 360px) 
+            and (min-height: 640px) 
+            and (-webkit-device-pixel-ratio: 3) 
+            and (orientation: landscape) {
+                float: none;
+                .full-width {
+                    width: 150px;
+                }
+            }
+
 }

@@ -76,7 +76,7 @@ public pageProperties = {
   createForm() {
     this.personCourseForm = this.fb.group({
     course: ['', Validators.required],
-    dateCompleted: ['', Validators.required],
+    dateCompleted: null,
     dateRegistered:null,
     })
   }
