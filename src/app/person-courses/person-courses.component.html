@@ -15,10 +15,7 @@
       <div class="form-content">
       <md-input-container>
         <input [formControl]="personCourseForm.controls['dateCompleted']" mdInput [mdDatepicker]="picker" placeholder="Completed date">
-        <button mdSuffix [mdDatepickerToggle]="picker"></button>
-        <md-error >
-            Completed date <strong>required</strong>
-          </md-error>
+        <button mdSuffix [mdDatepickerToggle]="picker"></button>        
       </md-input-container>
       <md-datepicker #picker></md-datepicker>   
       </div>

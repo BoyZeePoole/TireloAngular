@@ -42,7 +42,7 @@ columns: ITdDataTableColumn[] = [
   ngOnInit() {
     this.filter();
   }
-sort(sortEvent: ITdDataTableSortChangeEvent): void {
+  sort(sortEvent: ITdDataTableSortChangeEvent): void {
     this.sortBy = sortEvent.name;
     this.sortOrder = sortEvent.order;
     this.filter();
@@ -72,21 +72,33 @@ sort(sortEvent: ITdDataTableSortChangeEvent): void {
       let days = Math.floor(( Date.parse(dateFirst) - Date.parse(dateSecond) ) / 86400000);
       return days >= 0 ? days : 'Expired';
   }
+  
+  getDaysLeft(validPeriod, registerDate, completedDate) {
+    if(completedDate) {
+      let validityDate = this.add_months(new Date(completedDate), validPeriod)
+      return this.getDaysFromDates(new Date().toDateString(), validityDate.toDateString()); 
+    }
+      if(registerDate) {
+        return (new Date(registerDate) > new Date()) ? '('+this.getDaysFromDates(registerDate, new Date().toDateString()) +')' : 'Late';
+      }
+      
+  }
 
   filter(): void {
      if (this.coursePersonData == null) return;
      let newData: any[] = this.coursePersonData.map(o => {
       let validPeriod = o.Course.ValidPeriod;
-      let validityDate = this.add_months(new Date(o.DateCompleted), validPeriod);
+      let validityDate = o.DateCompleted ? this.add_months(new Date(o.DateCompleted), validPeriod) : null;
       return {
               Id: o.Id,
-               CourseName: o.Course.Name,
-               DateCompleted: this.getDateField(o.DateCompleted) ,
-               DateRegistered: this.getDateField(o.DateRegistered),
-               Expire: this.getDateField(validityDate.toDateString()),
-               DaysLeft: this.getDaysFromDates(validityDate.toDateString(), new Date().toDateString()),
-               Period: o.Course.ValidPeriod,
-               Manager: o.Manager ? o.Manager.Initials + ' ' + o.Manager.Surname : '***' };
+              CourseName: o.Course.Name,
+              DateCompleted: this.getDateField(o.DateCompleted) ,
+              DateRegistered: this.getDateField(o.DateRegistered),
+              Expire: o.DateCompleted ? this.getDateField(validityDate.toDateString()) : 'N/A',
+              //DaysLeft: validityDate ? this.getDaysFromDates(new Date().toDateString(), validityDate.toDateString()) : '',
+              DaysLeft: this.getDaysLeft(validPeriod, o.DateRegistered, o.DateCompleted),
+              Period: o.Course.ValidPeriod,
+              Manager: o.Manager ? o.Manager.Initials + ' ' + o.Manager.Surname : '' };
     });
    
     let excludedColumns: string[] = this.columns
