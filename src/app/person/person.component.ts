@@ -21,6 +21,7 @@ export class PersonComponent implements OnInit {
     Id: '',
     Surname: '',
     Initials: '',
+    Email: '',
     CoyNumber: '',
     Manager: {
       Id: '',
@@ -116,6 +117,7 @@ export class PersonComponent implements OnInit {
         surname: ['', Validators.required],
         initials: ['', Validators.required],
         coynumber: ['', Validators.required],
+        email: null,
         role: [null],
         manager: null
       })
@@ -135,6 +137,7 @@ export class PersonComponent implements OnInit {
     if (this.personForm.invalid) return;
     this.personModel.Surname = formValues.surname;
     this.personModel.Initials = formValues.initials;
+    this.personModel.Email = formValues.email;
     this.personModel.Manager = {
       Id:  formValues.manager,
       Surname: '',

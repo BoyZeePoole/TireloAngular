@@ -19,7 +19,13 @@
           <md-error >
             Initials is <strong>required</strong>
           </md-error>
-        </md-input-container></div>
+          </md-input-container>
+        </div>
+        <div class="form-content">
+          <md-input-container class="full-width">
+          <input mdInput [formControl]="personForm.controls['email']" placeholder="Email" id="email" [ngModel] = "personModel.Email">          
+        </md-input-container>
+        </div>
       </div>
       <div layout="row">
         <div class="form-content">

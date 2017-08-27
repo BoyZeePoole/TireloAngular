@@ -17,14 +17,13 @@
   #dataTable
   [data]="filteredData"
   [columns]="columns"
-  [selectable]="selectable"
   [clickable]="clickable"
   [multiple]="multiple"
   [sortable]="true"
   [sortBy]="sortBy"
   [(ngModel)]="selectedRows"
   [sortOrder]="sortOrder"
-  (click) = "selectEvent($event)"
+  (rowClick) = "selectEvent($event)"
   (sortChange)="sort($event)">  
 </td-data-table>
 <div class="md-padding" *ngIf="!dataTable.hasData" layout="row" layout-align="center center">

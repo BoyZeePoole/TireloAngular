@@ -31,7 +31,7 @@ columns: ITdDataTableColumn[] = [
   selectedRows: any[] = [];
   selectedItem: any;
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Descending;
-  clickable = false;
+  clickable = true;
   selectable = true;
   constructor(private personService: PersonService,
               private dataTableService: TdDataTableService,
@@ -64,7 +64,7 @@ columns: ITdDataTableColumn[] = [
   }
   selectEvent(clickEvent: ITdDataTableSelectEvent): void {
     this.selectedItem = clickEvent;
-    let item = this.selectedRows[0];
+    let item = clickEvent.row;
     this.router.navigate(['/person', item.Id]);
   }
 

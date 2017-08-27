@@ -76,7 +76,7 @@ columns: ITdDataTableColumn[] = [
   getDaysLeft(validPeriod, registerDate, completedDate) {
     if(completedDate) {
       let validityDate = this.add_months(new Date(completedDate), validPeriod)
-      return this.getDaysFromDates(new Date().toDateString(), validityDate.toDateString()); 
+      return this.getDaysFromDates(validityDate.toDateString(), new Date().toDateString()); 
     }
       if(registerDate) {
         return (new Date(registerDate) > new Date()) ? '('+this.getDaysFromDates(registerDate, new Date().toDateString()) +')' : 'Late';

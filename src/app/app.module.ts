@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdInputModule, MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdDatepickerModule, MdSidenavModule, MdListModule, MdGridListModule } from '@angular/material';
 import { AppComponent } from './app.component';
@@ -14,6 +15,8 @@ import { MaterialModule, MdNativeDateModule} from '@angular/material';
 import { CovalentDataTableModule } from '@covalent/core';
 import { CovalentSearchModule } from '@covalent/core';
 import { CovalentPagingModule } from '@covalent/core';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { SpinnerInterceptor} from './services/spinner.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { CovalentPagingModule } from '@covalent/core';
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MdInputModule, 
     MdButtonModule, 
@@ -43,7 +47,11 @@ import { CovalentPagingModule } from '@covalent/core';
     CovalentSearchModule,
     CovalentPagingModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: SpinnerInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
