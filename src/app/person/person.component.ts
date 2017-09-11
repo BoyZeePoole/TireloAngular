@@ -171,7 +171,7 @@ export class PersonComponent implements OnInit {
         message: 'Are you sure?',
         cancelButton: "Cancel",
         acceptButton: "Ok",
-        title: "Delete Course"
+        title: this.deletedIds.length > 1 ? "Delete Courses" : "Delete Course"
       }).afterClosed().subscribe((accept: boolean) => {
         if(accept) {
           this.courseService.deletePersonCourse(this.deletedIds)

@@ -20,3 +20,4 @@ $theme: mat-light-theme($primary, $accent, $warn);
 // (optional) Additional themes
 @include covalent-markdown-theme($theme);
 @include covalent-highlight-theme();
+@import 'node_modules/angular2-toaster/toaster';

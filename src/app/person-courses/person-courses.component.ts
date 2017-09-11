@@ -29,7 +29,10 @@ export class PersonCoursesComponent implements OnInit {
   }
 public pageProperties = {
     Title: 'Person',
-    ActionButton: 'Submit'
+    ActionButton: {
+      Submit: 'Submit',
+      Back: 'Back'
+    }
   }
 
   constructor(private fb: FormBuilder, 
@@ -51,7 +54,7 @@ public pageProperties = {
           .subscribe(
             person => {
               this.pageProperties.Title =  `${person.Initials} - ${person.Surname}`;
-              this.pageProperties.ActionButton = 'Submit';
+              this.pageProperties.ActionButton.Submit = 'Submit';
               this.getPersonCourses(this.selectedPersonId);
             },
             error => {

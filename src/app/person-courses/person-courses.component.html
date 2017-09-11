@@ -17,14 +17,14 @@
         <input [formControl]="personCourseForm.controls['dateCompleted']" mdInput [mdDatepicker]="picker" placeholder="Completed date">
         <button mdSuffix [mdDatepickerToggle]="picker"></button>        
       </md-input-container>
-      <md-datepicker #picker></md-datepicker>   
+      <md-datepicker touchUi="true" #picker></md-datepicker>   
       </div>
       <div class="form-content">
       <md-input-container>
         <input [formControl]="personCourseForm.controls['dateRegistered']" mdInput [mdDatepicker]="picker2" placeholder="Register date">
         <button mdSuffix [mdDatepickerToggle]="picker2"></button>
       </md-input-container>
-      <md-datepicker #picker2></md-datepicker>   
+      <md-datepicker touchUi="true" #picker2></md-datepicker>   
       </div>
     </div>
       </div> 
@@ -32,5 +32,6 @@
 </md-card-content>
  <app-person-courses-listing [coursePersonData]="personCourseChildData"></app-person-courses-listing> 
 <md-card-actions>
-  <button md-button color="accent" class="text-upper" (click)="addPersonCourses(personCourseForm.value)">{{pageProperties.ActionButton}}</button>
+  <button md-button color="accent" class="text-upper" (click)="addPersonCourses(personCourseForm.value)">{{pageProperties.ActionButton.Submit}}</button>
+  <button md-button color="accent" class="text-upper"  [routerLink]="['/person', selectedPersonId]">{{pageProperties.ActionButton.Back}}</button>
 </md-card-actions>
