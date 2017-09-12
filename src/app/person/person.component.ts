@@ -6,6 +6,7 @@ import {RoleService} from '../services/role.service';
 import {PersonService} from '../services/person.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TdDialogService } from '@covalent/core';
+import {ToasterModule, ToasterService} from 'angular2-toaster';{ }
 
 @Component({
   selector: 'app-person',
@@ -60,7 +61,8 @@ export class PersonComponent implements OnInit {
               private personService: PersonService,
               private route: ActivatedRoute,
               private dialogService: TdDialogService,
-              private router: Router) {     
+              private router: Router,
+              private toasterService: ToasterService) {     
     this.getRoles();
     this.getPeople();
     this.createPersonForm();
@@ -151,7 +153,7 @@ export class PersonComponent implements OnInit {
     this.personService.upsertPerson(this.personModel)
     .subscribe(
       success => {
-        //this.popToast('success', 'Success', this.popupMessage);
+        this.toasterService.pop('success', 'Success', "Person added");
         this.router.navigate(['/people']);
       },
       error => {
@@ -178,7 +180,9 @@ export class PersonComponent implements OnInit {
           .subscribe(
             success => {
               this.deletedIds = [];
+              this.toasterService.pop('success', 'Delete', 'Course deleted');              
               this.getPersonCourses(this.selectedPersonId);
+
             },
             error => {
 

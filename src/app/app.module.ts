@@ -17,7 +17,7 @@ import { CovalentSearchModule } from '@covalent/core';
 import { CovalentPagingModule } from '@covalent/core';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import { SpinnerInterceptor} from './services/spinner.interceptor';
-
+import {ToasterModule, ToasterService} from 'angular2-toaster';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +45,8 @@ import { SpinnerInterceptor} from './services/spinner.interceptor';
     MdNativeDateModule,
     CovalentDataTableModule,
     CovalentSearchModule,
-    CovalentPagingModule
+    CovalentPagingModule,
+    ToasterModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -93,10 +93,10 @@ columns: ITdDataTableColumn[] = [
               Id: o.Id,
               CourseName: o.Course.Name,
               DateCompleted: this.getDateField(o.DateCompleted) ,
-              DateRegistered: this.getDateField(o.DateRegistered),
+              DateRegistered: this.getDateField(o.DateExpired),
               Expire: o.DateCompleted ? this.getDateField(validityDate.toDateString()) : 'N/A',
               //DaysLeft: validityDate ? this.getDaysFromDates(new Date().toDateString(), validityDate.toDateString()) : '',
-              DaysLeft: this.getDaysLeft(validPeriod, o.DateRegistered, o.DateCompleted),
+              DaysLeft: this.getDaysLeft(validPeriod, o.DateExpired, o.DateCompleted),
               Period: o.Course.ValidPeriod,
               Manager: o.Manager ? o.Manager.Initials + ' ' + o.Manager.Surname : '' };
     });
