@@ -168,6 +168,29 @@ export class PersonComponent implements OnInit {
         return o.Id;
       });
     }
+    deletePerson() {
+      this.dialogService.openConfirm({
+        message: 'Are you sure?',
+        cancelButton: "Cancel",
+        acceptButton: "Ok",
+        title: "Delete " +this. personModel.Surname
+      }).afterClosed().subscribe((accept: boolean) => {
+        if(accept) {
+          this.personService.deletePerson(this.selectedPersonId)
+          .subscribe(
+            success => {
+              this.deletedIds = [];
+              this.toasterService.pop('success', 'Delete', 'Course deleted');              
+              this.getPersonCourses(this.selectedPersonId);
+            },
+            error => {
+
+            });
+        } else {
+
+        }
+      });
+    }
     deletePersonCourses() {
       this.dialogService.openConfirm({
         message: 'Are you sure?',

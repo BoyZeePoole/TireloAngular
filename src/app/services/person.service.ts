@@ -29,6 +29,22 @@ export class PersonService {
         })
         .catch(this.handleError);
   }
+  deletePerson(id: string) : Observable <boolean> {
+    let endpoint = this.configService.RootUrl() + EndPoints.deletePerson;
+    let payload = new URLSearchParams();
+    payload.append("id", id);
+
+    let _headers = this.authHeaderService.getHeaders();
+    _headers.delete('Content-Type');
+    _headers.append('Content-Type', 'application/json');
+
+    return this.http
+        .post(endpoint, JSON.stringify(id), {headers: _headers})
+        .map((response: Response) => {
+          return Observable.of(true);
+        })
+        .catch(this.handleError);
+  }
 
   getPeople() : Observable<any> {
     let endpoint = this.configService.RootUrl() + EndPoints.getPeople;
