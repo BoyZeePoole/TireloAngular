@@ -29,23 +29,7 @@ export class PersonService {
         })
         .catch(this.handleError);
   }
-  deletePerson(id: string) : Observable <boolean> {
-    let endpoint = this.configService.RootUrl() + EndPoints.deletePerson;
-    let payload = new URLSearchParams();
-    payload.append("id", id);
-
-    let _headers = this.authHeaderService.getHeaders();
-    _headers.delete('Content-Type');
-    _headers.append('Content-Type', 'application/json');
-
-    return this.http
-        .post(endpoint, JSON.stringify(id), {headers: _headers})
-        .map((response: Response) => {
-          return Observable.of(true);
-        })
-        .catch(this.handleError);
-  }
-
+  
   getPeople() : Observable<any> {
     let endpoint = this.configService.RootUrl() + EndPoints.getPeople;
     return this.http
@@ -58,7 +42,21 @@ export class PersonService {
       });
     
   }
-  
+  deletePerson(id: string) : Observable <boolean> {
+    let endpoint = this.configService.RootUrl() + EndPoints.deletePerson;
+    let options = new RequestOptions({headers: this.authHeaderService.getHeaders()});
+    let params: URLSearchParams  = new URLSearchParams();
+    params.append('id', id);
+    options.search = params;
+
+     return this.http
+      .get(endpoint, options)
+      .map(response => {
+        return response.json()
+      })
+      .catch(this.handleError);
+  }
+
   getPerson(Id: string) : Observable<any> {
     let endpoint = this.configService.RootUrl() + EndPoints.getPerson;
     let options = new RequestOptions({headers: this.authHeaderService.getHeaders()});

@@ -180,8 +180,9 @@ export class PersonComponent implements OnInit {
           .subscribe(
             success => {
               this.deletedIds = [];
-              this.toasterService.pop('success', 'Delete', 'Course deleted');              
-              this.getPersonCourses(this.selectedPersonId);
+              this.toasterService.pop('success', 'Delete', 'Person deleted');     
+              this.router.navigate(['/people']);         
+              //this.getPersonCourses(this.selectedPersonId);
             },
             error => {
 

@@ -10,5 +10,7 @@ export const EndPoints = {
     setCourse: '/api/course',
     setCoursePerson: 'api/personcourse',
     getPersonCourses: 'api/getpersoncourse',
-    deletePersonCourses: 'api/deletepersoncourse'
+    deletePersonCourses: 'api/deletepersoncourse',
+    deletePerson: 'api/deleteperson'
+    
 };
